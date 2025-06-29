@@ -1,0 +1,52 @@
+﻿@model List<ProyectoConstruccion_APAZA_CUTIPA.Models.clsUsuario>
+
+@{
+    ViewBag.Title = "Solicitudes de Acceso";
+}
+
+<h2>Solicitudes de Acceso Pendientes</h2>
+
+@if (Model.Count == 0)
+{
+    <p>No hay solicitudes pendientes.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Método Registro</th>
+                <th>Rol Actual</th>
+                <th>Fecha Solicitud</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var solicitud in Model)
+            {
+                <tr>
+                    <td>@solicitud.Nombre</td>
+                    <td>@solicitud.Correo</td>
+                    <td>@solicitud.MetodoRegistro</td>
+                    <td>@solicitud.TipoUsuario</td>
+                    <td>@solicitud.FechaRegistro.ToString("g")</td>
+                    <td>
+                        @using (Html.BeginForm("AprobarSolicitud", "Usuario", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", solicitud.Id)
+                            <select name="rolAsignado" class="form-select form-select-sm mb-1" required>
+                                <option value="" disabled selected>Asignar rol</option>
+                                <option value="Invitado">Invitado</option>
+                                <option value="Empleado">Empleado</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
+                            <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

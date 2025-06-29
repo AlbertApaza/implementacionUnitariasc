@@ -1,0 +1,397 @@
+﻿@model List<ProyectoConstruccion_APAZA_CUTIPA.Models.EventoClipViewModel>
+@{
+    ViewBag.Title = "Eventos y Clips";
+    string apiVideoBaseUrl = "https://tunelvps.sytes.net/api/video/";
+    var tiposDisponibles = ViewBag.TiposDisponibles as List<string> ?? new List<string>();
+    var severidadesDisponibles = ViewBag.SeveridadesDisponibles as List<string> ?? new List<string>();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .clip-item:hover {
+            transform: scale(1.03);
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer; /* Todas las tarjetas son clickeables */
+        }
+
+        .clip-thumbnail {
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .placeholder-thumbnail {
+            height: 180px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+
+        #btnDescargarVideo:disabled {
+            cursor: wait;
+        }
+
+        .filter-section .row > div {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="text-center mb-4">@ViewBag.Title</h1>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        @* SECCIÓN DE FILTROS (sin cambios) *@
+        <div class="card mb-4 shadow-sm filter-section">
+            @* ... (código de filtros igual que antes) ... *@
+            <div class="card-header">
+                <h5 class="mb-0">Filtros</h5>
+            </div>
+            <div class="card-body">
+                <form method="get" action="@Url.Action("Index", "Clips")" id="formFiltros">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="filtroTipo" class="form-label">Tipo de Evento</label>
+                            <select class="form-select" id="filtroTipo" name="filtroTipo">
+                                <option value="Todos" @(ViewBag.CurrentFiltroTipo == "Todos" || string.IsNullOrEmpty(ViewBag.CurrentFiltroTipo) ? "selected" : "")>Todos</option>
+                                @foreach (var tipo in tiposDisponibles)
+                                {
+                                    <option value="@tipo" @(ViewBag.CurrentFiltroTipo == tipo ? "selected" : "")>@tipo</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filtroSeveridad" class="form-label">Severidad</label>
+                            <select class="form-select" id="filtroSeveridad" name="filtroSeveridad">
+                                <option value="Todas" @(ViewBag.CurrentFiltroSeveridad == "Todas" || string.IsNullOrEmpty(ViewBag.CurrentFiltroSeveridad) ? "selected" : "")>Todas</option>
+                                @foreach (var sev in severidadesDisponibles)
+                                {
+                                    <option value="@sev" @(ViewBag.CurrentFiltroSeveridad == sev ? "selected" : "")>@sev</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filtroFechaDesde" class="form-label">Fecha Desde</label>
+                            <input type="date" class="form-control" id="filtroFechaDesde" name="filtroFechaDesde" value="@ViewBag.CurrentFiltroFechaDesde">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filtroFechaHasta" class="form-label">Fecha Hasta</label>
+                            <input type="date" class="form-control" id="filtroFechaHasta" name="filtroFechaHasta" value="@ViewBag.CurrentFiltroFechaHasta">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <label for="filtroHoraDesde" class="form-label">Hora Desde</label>
+                            <input type="time" class="form-control" id="filtroHoraDesde" name="filtroHoraDesde" value="@ViewBag.CurrentFiltroHoraDesde">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filtroHoraHasta" class="form-label">Hora Hasta</label>
+                            <input type="time" class="form-control" id="filtroHoraHasta" name="filtroHoraHasta" value="@ViewBag.CurrentFiltroHoraHasta">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sortOrder" class="form-label">Ordenar por Fecha</label>
+                            <select class="form-select" id="sortOrder" name="sortOrder">
+                                <option value="desc" @(ViewBag.CurrentSortOrder == "desc" ? "selected" : "")>Más recientes primero</option>
+                                <option value="asc" @(ViewBag.CurrentSortOrder == "asc" ? "selected" : "")>Más antiguos primero</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel-fill me-2"></i>Aplicar Filtros</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        @* REPRODUCTOR DE VIDEO (sin cambios) *@
+        <div class="mb-4 d-none" id="pnlVideoPlayer">
+            @* ... (código del reproductor igual que antes) ... *@
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title mb-0 d-flex align-items-center" id="lblVideoTitle">Título del clip</h5>
+                        <small class="text-muted" id="lblVideoSubtitle">Clip cargado</small>
+                    </div>
+                    <button type="button" class="btn-close" id="btnCloseVideoPlayer" aria-label="Close"></button>
+                </div>
+                <div class="card-body">
+                    <div class="ratio ratio-16x9 mb-4">
+                        <video controls id="vidElementoClip" style="background-color: #000;">
+                            <source id="vidSourceClip" src="" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-file-earmark me-2"></i><span class="fw-medium me-1">ID Evento:</span><span id="lblVideoIdEvento">N/A</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-shield-exclamation me-2"></i><span class="fw-medium me-1">Tipo Evento:</span><span id="lblVideoTipoEvento">N/A</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-calendar-event me-2"></i><span class="fw-medium me-1">Fecha Evento:</span><span id="lblVideoDate">N/A</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-geo-alt me-2"></i><span class="fw-medium me-1">Ubicación:</span><span id="lblVideoUbicacion">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-info d-flex align-items-start" id="msgInfoClip">
+                        <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                        <div>
+                            <p class="fw-medium mb-1">Información</p>
+                            <p class="mb-0" id="lblVideoInfoAdicional">Este clip corresponde a un evento detectado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="button" class="btn btn-outline-primary" id="btnDescargarVideo" disabled>
+                        <i class="bi bi-download me-2"></i>Descargar Video
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @* Alerta para video no disponible, inicialmente oculta *@
+        <div class="alert alert-warning d-none text-center" role="alert" id="alertVideoNoDisponible">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>No hay un video asociado a este evento.
+        </div>
+
+
+        @if (Model == null || !Model.Any())
+        {
+            if (string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+            {
+                <div class="text-center py-5" id="msgAreaMensajes">
+                    <p class="text-muted" id="lblMessageText">No se encontraron eventos con los filtros aplicados.</p>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="pnlClipsGrid">
+                @foreach (var evento in Model)
+                {
+                    var delay = Model.IndexOf(evento) * 50;
+                    string detectionType = evento.Tipo ?? "Evento";
+                    string badgeClass = "bg-secondary";
+                    string nombreParaMostrar = evento.NombreClip ?? "Evento Registrado";
+                    string fechaFormateada = evento.FechaHoraCompleta.ToString("g");
+                    // bool hasVideo = !string.IsNullOrEmpty(evento.IDdrive); // Ya no se usa para la apariencia inicial de la tarjeta
+
+                    if (!string.IsNullOrEmpty(evento.Tipo))
+                    {
+                        var tipoLower = evento.Tipo.ToLower();
+                        if (tipoLower.Contains("persona")) { detectionType = "Persona"; badgeClass = "bg-warning text-dark"; }
+                        else if (tipoLower.Contains("cuchillo")) { detectionType = "Cuchillo"; badgeClass = "bg-danger"; }
+                        else if (tipoLower.Contains("pistola") || tipoLower.Contains("arma")) { detectionType = "Pistola"; badgeClass = "bg-danger"; }
+                    }
+
+                    <div class="col animate__animated animate__fadeInUp" style="animation-delay: @(delay)ms;">
+                        <div class="card h-100 shadow-sm clip-item" @* Se quita la clase condicional *@
+                             data-iddrive="@evento.IDdrive"
+                             data-idevento="@evento.IdEvento"
+                             data-nombreclip="@nombreParaMostrar"
+                             data-fechaevento="@fechaFormateada"
+                             data-tipoevento="@evento.Tipo"
+                             data-ubicacion="@evento.Ubicacion">
+                            <div class="position-relative">
+                                <div class="placeholder-thumbnail">
+                                    @* Siempre el mismo placeholder *@
+                                    <i class="bi bi-film fs-1"></i>
+                                </div>
+                                <div class="position-absolute top-50 start-50 translate-middle"><div class="d-flex align-items-center justify-content-center bg-dark bg-opacity-50 rounded-circle" style="width: 50px; height: 50px;"><i class="bi bi-play-fill text-white fs-4"></i></div></div>
+                                <span class="badge @badgeClass position-absolute top-0 end-0 m-2">@detectionType</span>
+                                <div class="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-75 text-white p-2 text-truncate" title="@nombreParaMostrar">@nombreParaMostrar</div>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="mt-auto">
+                                    <div class="d-flex align-items-center text-muted small"><i class="bi bi-calendar me-1"></i><span>@fechaFormateada</span></div>
+                                    @if (!string.IsNullOrEmpty(evento.Ubicacion))
+                                    {
+                                        <div class="d-flex align-items-center text-muted small mt-1"><i class="bi bi-geo-alt me-1"></i><span>@evento.Ubicacion</span></div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(evento.Severidad))
+                                    {
+                                        <div class="d-flex align-items-center text-muted small mt-1"><i class="bi bi-exclamation-triangle me-1"></i><span>Severidad: @evento.Severidad</span></div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* PAGINACIÓN (sin cambios) *@
+            if (ViewBag.TotalPaginas > 1)
+            {
+                @* ... (código de paginación igual que antes) ... *@
+                <nav aria-label="Paginación de clips" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (ViewBag.PaginaActual > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", "Clips", new { pagina = ViewBag.PaginaActual - 1, sortOrder = ViewBag.CurrentSortOrder, filtroTipo = ViewBag.CurrentFiltroTipo, filtroSeveridad = ViewBag.CurrentFiltroSeveridad, filtroFechaDesde = ViewBag.CurrentFiltroFechaDesde, filtroFechaHasta = ViewBag.CurrentFiltroFechaHasta, filtroHoraDesde = ViewBag.CurrentFiltroHoraDesde, filtroHoraHasta = ViewBag.CurrentFiltroHoraHasta })">Anterior</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                        }
+
+                        @for (int i = 1; i <= ViewBag.TotalPaginas; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.PaginaActual ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", "Clips", new { pagina = i, sortOrder = ViewBag.CurrentSortOrder, filtroTipo = ViewBag.CurrentFiltroTipo, filtroSeveridad = ViewBag.CurrentFiltroSeveridad, filtroFechaDesde = ViewBag.CurrentFiltroFechaDesde, filtroFechaHasta = ViewBag.CurrentFiltroFechaHasta, filtroHoraDesde = ViewBag.CurrentFiltroHoraDesde, filtroHoraHasta = ViewBag.CurrentFiltroHoraHasta })">@i</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.PaginaActual < ViewBag.TotalPaginas)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", "Clips", new { pagina = ViewBag.PaginaActual + 1, sortOrder = ViewBag.CurrentSortOrder, filtroTipo = ViewBag.CurrentFiltroTipo, filtroSeveridad = ViewBag.CurrentFiltroSeveridad, filtroFechaDesde = ViewBag.CurrentFiltroFechaDesde, filtroFechaHasta = ViewBag.CurrentFiltroFechaHasta, filtroHoraDesde = ViewBag.CurrentFiltroHoraDesde, filtroHoraHasta = ViewBag.CurrentFiltroHoraHasta })">Siguiente</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                        }
+                    </ul>
+                </nav>
+                <div class="text-center text-muted small">
+                    Mostrando página @ViewBag.PaginaActual de @ViewBag.TotalPaginas (@ViewBag.TotalRegistros eventos encontrados)
+                </div>
+            }
+        }
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            const apiVideoBaseUrl = "@apiVideoBaseUrl";
+            const $pnlVideoPlayer = $('#pnlVideoPlayer');
+            const $vidElementoClip = $('#vidElementoClip');
+            const $vidSourceClip = $('#vidSourceClip');
+            const $btnDownloadVideo = $('#btnDescargarVideo');
+            const $alertVideoNoDisponible = $('#alertVideoNoDisponible'); // Selector para la alerta
+
+            function showClip(clipData) {
+                $('#lblVideoTitle').text(clipData.nombreclip || 'Sin Título');
+                $('#lblVideoIdEvento').text(clipData.idevento);
+                $('#lblVideoDate').text(clipData.fechaevento);
+                $('#lblVideoTipoEvento').text(clipData.tipoevento || 'N/A');
+                $('#lblVideoUbicacion').text(clipData.ubicacion || 'N/A');
+                $('#lblVideoInfoAdicional').text(`Este clip corresponde al evento '${clipData.tipoevento || 'desconocido'}' en la ubicación '${clipData.ubicacion || 'desconocida'}'.`);
+
+                const videoUrl = `${apiVideoBaseUrl}${clipData.iddrive}`;
+                $vidSourceClip.attr('src', videoUrl);
+                $vidElementoClip[0].load();
+
+                $btnDownloadVideo.data('video-url', videoUrl)
+                                 .data('download-filename', (clipData.nombreclip || `evento_${clipData.idevento}`) + '.mp4')
+                                 .prop('disabled', false);
+
+                $pnlVideoPlayer.removeClass('d-none').addClass('d-block');
+                 $alertVideoNoDisponible.addClass('d-none'); // Ocultar alerta si se muestra un video
+                $('html, body').animate({ scrollTop: $pnlVideoPlayer.offset().top - 20 }, 300);
+                $vidElementoClip[0].play().catch(e => console.warn("Autoplay fue prevenido:", e));
+            }
+
+            function closeVideoPlayer() {
+                $pnlVideoPlayer.removeClass('d-block').addClass('d-none');
+                const video = $vidElementoClip[0];
+                if (video) { video.pause(); $vidSourceClip.attr('src', ''); }
+                $btnDownloadVideo.removeData('video-url').removeData('download-filename').prop('disabled', true);
+                 $alertVideoNoDisponible.addClass('d-none'); // Ocultar alerta al cerrar
+            }
+
+            $('#pnlClipsGrid').on('click', '.clip-item', function () {
+                closeVideoPlayer(); // Cierra el reproductor anterior y la alerta
+                const $item = $(this);
+                const idDrive = $item.data('iddrive');
+
+                if (idDrive && idDrive.trim() !== "") { // Verifica que IDdrive exista y no esté vacío
+                    const clipInfo = {
+                        iddrive: idDrive,
+                        idevento: $item.data('idevento'),
+                        nombreclip: $item.data('nombreclip'),
+                        fechaevento: $item.data('fechaevento'),
+                        tipoevento: $item.data('tipoevento'),
+                        ubicacion: $item.data('ubicacion')
+                    };
+                    showClip(clipInfo);
+                } else {
+                    // No hay IDdrive, mostrar alerta en lugar del reproductor
+                    $alertVideoNoDisponible.removeClass('d-none');
+                     $('html, body').animate({ scrollTop: $alertVideoNoDisponible.offset().top - 20 }, 300);
+                    console.log("Este evento no tiene un video asociado para reproducir. ID Evento: " + $item.data('idevento'));
+                    // Opcional: podrías llenar algunos detalles del evento en otra parte de la UI si lo deseas
+                }
+            });
+
+            $('#btnCloseVideoPlayer').on('click', closeVideoPlayer);
+            $btnDownloadVideo.on('click', function () {
+                // ... (misma función de descarga que antes)
+                const button = $(this);
+                const videoUrl = button.data('video-url');
+                const filename = button.data('download-filename');
+
+                if (!videoUrl) { alert("Error: No se pudo encontrar la URL del video."); return; }
+
+                button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Descargando...');
+
+                fetch(videoUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                let errorDetail = text;
+                                try {
+                                    const jsonError = JSON.parse(text);
+                                    errorDetail = jsonError.message || jsonError.error || JSON.stringify(jsonError);
+                                } catch (e) { /* No era JSON */ }
+                                throw new Error(`Error HTTP ${response.status}: ${errorDetail}`);
+                            });
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const blobUrl = window.URL.createObjectURL(blob);
+                        const tempLink = document.createElement('a');
+                        tempLink.style.display = 'none';
+                        tempLink.href = blobUrl;
+                        tempLink.setAttribute('download', filename);
+                        document.body.appendChild(tempLink);
+                        tempLink.click();
+                        document.body.removeChild(tempLink);
+                        window.URL.revokeObjectURL(blobUrl);
+                        button.prop('disabled', false).html('<i class="bi bi-download me-2"></i>Descargar Video');
+                    })
+                    .catch(error => {
+                        console.error("Error en descarga: ", error);
+                        alert(`Error al descargar: ${error.message}`);
+                        button.prop('disabled', false).html('<i class="bi bi-download me-2"></i>Descargar Video');
+                    });
+            });
+            closeVideoPlayer(); // Cierra al cargar la página
+        });
+    </script>
+</body>
+</html>

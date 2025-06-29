@@ -1,0 +1,176 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Proyecto Construcción</title>
+    <link href="~/source/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 0;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+
+        .main-content {
+            padding-left: 16.666667%;
+        }
+
+        @@media (max-width: 767.98px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                padding-left: 0 !important;
+            }
+        }
+
+        .user-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 0.5rem 1rem;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-0">
+        @if (Session["Usuario"] != null)
+        {
+            <div class="col-md-2 d-md-block bg-light sidebar">
+                @Html.Partial("_NavbarVertical")
+            </div>
+            <div class="col-md-20 ms-sm-auto main-content">
+                @Html.Partial("_StateBarHorizontal")
+                <div class="p-3 mt-4">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-12">
+                @RenderBody()
+            </div>
+        }
+    </div>
+
+    <script src="~/source/js/jquery-3.7.1.min.js"></script>
+    <script src="~/source/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging-compat.js"></script>
+
+    <!-- Firebase messaging setup -->
+    <script>
+        // Reemplaza la sección de Firebase en tu layout principal con esto:
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDi1As7_ufAC9URZiuII8guJ2FjRR9LGpU",
+            authDomain: "notificacionestest-7c1c8.firebaseapp.com",
+            projectId: "notificacionestest-7c1c8",
+            storageBucket: "notificacionestest-7c1c8.firebasestorage.app",
+            messagingSenderId: "201347486772",
+            appId: "1:201347486772:web:9988e7b9ba34e0f261a661"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        if ('serviceWorker' in navigator && typeof messaging !== 'undefined') {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                .then(function (registration) {
+                    console.log('✅ Service Worker registrado correctamente');
+
+                    messaging.getToken({
+                        vapidKey: "BCHNngiybHbSo_5qoAXmXjsq5MPYNH29_O63hh3Eo0K6pl45VIN-z1Guxt7X_uGj8dHHNbR8vkLU8oPO-B3l-Eg",
+                        serviceWorkerRegistration: registration
+                    }).then((currentToken) => {
+                        if (currentToken) {
+                            console.log('🔑 Token FCM obtenido:', currentToken);
+
+                            // Enviar token al servidor
+                            fetch('/Usuario/GuardarTokenFcm', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: new URLSearchParams({ tokenFcm: currentToken })
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log('📨 Token guardado en servidor:', data.message);
+                                })
+                                .catch(err => {
+                                    console.error('❌ Error al enviar token al servidor:', err);
+                                });
+
+                        } else {
+                            console.warn('⚠️ No se pudo obtener el token FCM.');
+                        }
+                    }).catch((err) => {
+                        console.error('❌ Error al obtener el token FCM:', err);
+                    });
+                })
+                .catch(err => {
+                    console.error('❌ Error al registrar el Service Worker:', err);
+                });
+        }
+
+        // === MANEJO DE NOTIFICACIONES EN PRIMER PLANO ===
+        messaging.onMessage(payload => {
+            console.log("📩 Notificación recibida en primer plano:", payload);
+
+            // Verificar si existe la función para procesar notificaciones
+            if (typeof window.procesarNotificacionFirebase === 'function') {
+                window.procesarNotificacionFirebase(payload);
+            } else {
+                console.warn('⚠️ Función procesarNotificacionFirebase no encontrada');
+
+                // Fallback: agregar directamente si las funciones están disponibles
+                if (typeof window.agregarNotificacion === 'function') {
+                    const { title, body } = payload.notification;
+                    const isAlert = title.toLowerCase().includes('alerta') ||
+                        title.toLowerCase().includes('detectado');
+                    window.agregarNotificacion(title, body, isAlert);
+                }
+            }
+        });
+
+        // === FUNCIÓN DE PRUEBA ===
+        window.enviarNotificacionPrueba = function () {
+            const payload = {
+                notification: {
+                    title: "Prueba del Sistema",
+                    body: "Esta es una notificación de prueba para verificar el funcionamiento"
+                }
+            };
+
+            if (typeof window.procesarNotificacionFirebase === 'function') {
+                window.procesarNotificacionFirebase(payload);
+                console.log('🧪 Notificación de prueba enviada');
+            } else {
+                console.error('❌ No se pudo enviar la notificación de prueba');
+            }
+        };
+
+        console.log('🔥 Firebase inicializado correctamente');
+    </script>
+</body>
+</html>

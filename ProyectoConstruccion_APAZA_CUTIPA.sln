@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoConstruccion_APAZA_CUTIPA", "ProyectoConstruccion_APAZA_CUTIPA\ProyectoConstruccion_APAZA_CUTIPA.csproj", "{11998DF9-A928-4C4B-9540-89EF746FC613}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEST_APAZA_CUTIPA", "TEST_APAZA_CUTIPA\TEST_APAZA_CUTIPA.csproj", "{5DDF8D31-816D-425E-916A-40589C5F101C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11998DF9-A928-4C4B-9540-89EF746FC613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11998DF9-A928-4C4B-9540-89EF746FC613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11998DF9-A928-4C4B-9540-89EF746FC613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11998DF9-A928-4C4B-9540-89EF746FC613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DDF8D31-816D-425E-916A-40589C5F101C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDF8D31-816D-425E-916A-40589C5F101C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DDF8D31-816D-425E-916A-40589C5F101C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDF8D31-816D-425E-916A-40589C5F101C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {908BEA1E-8CDD-4D1A-B168-B6233A1F3FF5}
+	EndGlobalSection
+EndGlobal

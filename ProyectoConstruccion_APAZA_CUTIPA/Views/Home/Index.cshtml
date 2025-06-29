@@ -1,0 +1,448 @@
+﻿@model IEnumerable<ProyectoConstruccion_APAZA_CUTIPA.Models.clsReporte>
+@{
+    ViewBag.Title = "Dashboard";
+    var totalDetecciones = ViewBag.TotalDetecciones ?? 0;
+    var alertasCriticas = ViewBag.AlertasCriticas ?? 0;
+    var personasDetectadas = ViewBag.PersonasDetectadas ?? 0;
+    var eventosTipoMask = ViewBag.EventosTipoMask ?? 0;
+    var deteccionesRecientes = ViewBag.DeteccionesRecientes as List<ProyectoConstruccion_APAZA_CUTIPA.Models.clsReporte> ?? new List<ProyectoConstruccion_APAZA_CUTIPA.Models.clsReporte>();
+    var paginaActual = ViewBag.PaginaActualDatosCompletos ?? 1;
+    var totalPaginas = ViewBag.TotalPaginasDatosCompletos ?? 1;
+    var totalRegistros = ViewBag.TotalRegistrosDatosCompletos ?? 0;
+    var labelsTendencia = ViewBag.LabelsTendencia as List<string> ?? new List<string>();
+    var dataTendencia = ViewBag.DataTendencia as List<int> ?? new List<int>();
+    var labelsTipos = ViewBag.LabelsTiposDeteccion as List<string> ?? new List<string>();
+    var dataTipos = ViewBag.DataTiposDeteccion as List<int> ?? new List<int>();
+    var labelsSeveridad = ViewBag.LabelsSeveridad as List<string> ?? new List<string>();
+    var dataSeveridad = ViewBag.DataSeveridad as List<int> ?? new List<int>();
+}
+
+<style>
+    .card {
+        transition: all 0.2s ease;
+        border-radius: 0.5rem;
+    }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+    .badge-critical {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    .badge-high {
+        background-color: #f97316;
+        color: white;
+    }
+
+    .badge-medium {
+        background-color: #eab308;
+        color: white;
+    }
+
+    .badge-low {
+        background-color: #22c55e;
+        color: white;
+    }
+
+    .badge-default {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .chart-container {
+        height: 300px;
+        position: relative;
+    }
+
+    .excel-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .excel-table th {
+            background-color: #f3f4f6;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .excel-table th, .excel-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .excel-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .excel-table tr:hover {
+            background-color: #f3f4f6;
+        }
+
+    .toggle-btn {
+        border-radius: 30px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+    }
+
+        .toggle-btn.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .toggle-btn:not(.active) {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+    .dropdown-menu {
+        min-width: auto;
+    }
+    /* Para que el dropdown no sea tan ancho */
+</style>
+
+<div class="container-fluid py-4">
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    @if (TempData["ExportError"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["ExportError"]
+        </div>
+    }
+
+    <!-- Encabezado y Botón Exportar Principal -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Dashboard</h1>
+        <!-- Actualizado: Botón Principal para PDF del Dashboard -->
+        <a href="@Url.Action("ExportarDashboardPrincipalPDF", "Home")" target="_blank" id="btnExportarPdfPrincipal" class="btn btn-primary d-flex align-items-center gap-2">
+            <i class="fas fa-download"></i>
+            Exportar Dashboard PDF
+        </a>
+    </div>
+
+    <!-- KPIs -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><h6 class="card-subtitle text-muted">Total Detecciones</h6><i class="fas fa-shield-alt text-muted"></i></div><h2 id="lblTotalDetecciones" class="card-title mb-1">@totalDetecciones.ToString("N0")</h2></div></div></div>
+        <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><h6 class="card-subtitle text-muted">Alertas Críticas</h6><i class="fas fa-shield-alt text-danger"></i></div><h2 id="lblAlertasCriticas" class="card-title mb-1">@alertasCriticas.ToString("N0")</h2></div></div></div>
+        <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><h6 class="card-subtitle text-muted">Personas Detectadas</h6><i class="fas fa-user text-warning"></i></div><h2 id="lblPersonasSospechosas" class="card-title mb-1">@personasDetectadas.ToString("N0")</h2></div></div></div>
+        <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><h6 class="card-subtitle text-muted">Eventos Mascarilla</h6><i class="fas fa-head-side-mask text-info"></i></div><h2 id="lblEventosTipoMask" class="card-title mb-1">@eventosTipoMask.ToString("N0")</h2></div></div></div>
+    </div>
+
+    <!-- Detecciones Recientes -->
+    <div class="card mb-4">
+        <div class="card-header bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="card-title mb-0">Detecciones Recientes</h5>
+                    <p class="card-text small text-muted">Lista de las últimas 5 detecciones en el sistema.</p>
+                </div>
+
+                <!-- MODIFICADO: Dos botones separados para Exportar Recientes -->
+                <div class="d-flex gap-2">
+                    <a href="@Url.Action("ExportarRecientesCSV", "Home")" target="_blank" class="btn btn-outline-success btn-sm d-flex align-items-center">
+                        <i class="fas fa-file-csv me-1"></i> Exportar CSV
+                    </a>
+                    <a href="@Url.Action("ExportarRecientesPDF", "Home")" target="_blank" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+                        <i class="fas fa-file-pdf me-1"></i> Exportar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table id="tblDeteccionesRecientes" class="table table-hover mb-0">
+                    <thead><tr><th>Tipo</th><th>Severidad</th><th>Ubicación</th><th>Fecha y Hora</th></tr></thead>
+                    <tbody>
+                        @if (deteccionesRecientes.Any())
+                        {
+                            foreach (var evento in deteccionesRecientes)
+                            {
+                                string severidadClass = "badge-default";
+                                if (!string.IsNullOrEmpty(evento.SeveridadEvento))
+                                {
+                                    switch (evento.SeveridadEvento.ToLower())
+                                    {
+                                        case "alta": severidadClass = "badge-high"; break;
+                                        case "crítico": severidadClass = "badge-critical"; break;
+                                        case "media": severidadClass = "badge-medium"; break;
+                                        case "baja": severidadClass = "badge-low"; break;
+                                    }
+                                }
+                                <tr><td>@evento.TipoEvento</td><td><span class="badge @severidadClass">@evento.SeveridadEvento</span></td><td>@evento.UbicacionEvento</td><td>@(evento.FechaHoraCompletaEvento?.ToString("dd/MM/yyyy HH:mm:ss") ?? "N/A")</td></tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="4" class="text-center">No hay detecciones recientes.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualización de Datos (Toggle Gráficos/Datos) -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Visualización de Datos</h5>
+        <div class="btn-group" role="group" aria-label="Alternar vista">
+            <button type="button" class="btn toggle-btn active" id="btnToggleCharts"><i class="fas fa-chart-pie me-2"></i>Gráficos</button>
+            <button type="button" class="btn toggle-btn" id="btnToggleData"><i class="fas fa-table me-2"></i>Datos</button>
+        </div>
+    </div>
+
+    <!-- Sección Gráficos -->
+    <div id="pnlChartsSection">
+        <div class="row g-4 mb-4">
+            <div class="col-md-4"><div class="card h-100"><div class="card-header bg-white"><h5 class="card-title mb-0">Tendencia de Detecciones</h5></div><div class="card-body"><div class="chart-container"><canvas id="cnvLineChart"></canvas></div></div><div class="card-footer bg-white"><button id="btnExportarGraficoLinea" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2"><i class="fas fa-download"></i> Exportar Gráfico</button></div></div></div>
+            <div class="col-md-4"><div class="card h-100"><div class="card-header bg-white"><h5 class="card-title mb-0">Tipos de Detecciones</h5></div><div class="card-body"><div class="chart-container"><canvas id="cnvBarChart"></canvas></div></div><div class="card-footer bg-white"><button id="btnExportarGraficoBarras" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2"><i class="fas fa-download"></i> Exportar Gráfico</button></div></div></div>
+            <div class="col-md-4"><div class="card h-100"><div class="card-header bg-white"><h5 class="card-title mb-0">Distribución por Severidad</h5></div><div class="card-body"><div class="chart-container"><canvas id="cnvPieChart"></canvas></div></div><div class="card-footer bg-white"><button id="btnExportarGraficoPie" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2"><i class="fas fa-download"></i> Exportar Gráfico</button></div></div></div>
+        </div>
+        <div class="mt-5"><div class="d-flex align-items-center mb-3"><h5 class="mb-0">Cargar Gráfico Custom</h5><a href="@Url.Action("Index", "Reportes")" id="btnNuevoGraficoCustomLink" class="btn btn-sm btn-link d-flex align-items-center ms-2"><i class="fas fa-plus-circle me-1"></i> Nuevo Gráfico</a></div><hr class="my-3"><div class="card bg-light"><div id="pnlPlaceholderGraficoCustom" class="card-body text-center py-5"><div class="text-muted"><p class="mb-2">No existen Gráficos generados</p><p class="small">Crea un nuevo gráfico personalizado para visualizar tus datos</p></div><a href="@Url.Action("Index", "Reportes")" id="btnCrearGraficoCustom" class="btn btn-outline-secondary mt-3 d-inline-flex align-items-center gap-2"><i class="fas fa-plus-circle"></i> Crear Gráfico</a></div></div></div>
+    </div>
+
+    <!-- Sección Datos Completos -->
+    <div id="pnlDataSection" style="display: none;">
+        <div class="card mb-4">
+            <div class="card-header bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Datos Completos</h5>
+                    <!-- MODIFICADO: Dos botones separados en lugar de un dropdown -->
+                    <div>
+                        <a href="@Url.Action("ExportarTodosLosEventosCSV", "Home")" target="_blank" class="btn btn-outline-success btn-sm me-2">
+                            <i class="fas fa-file-csv me-1"></i> Exportar Todo CSV
+                        </a>
+                        <a href="@Url.Action("ExportarTodosLosEventosPDF", "Home")" target="_blank" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-file-pdf me-1"></i> Exportar Todo PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table id="tblDatosCompletos" class="table table-striped table-hover excel-table mb-0">
+                        <thead><tr><th>Fecha</th><th>Hora</th><th>Tipo</th><th>Subtipo</th><th>Severidad</th><th>Ubicación</th><th>Confianza</th><th>Estado</th><th>Acciones</th></tr></thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var evento in Model)
+                                {
+                                    <tr>
+                                        <td>@(evento.FechaEvento?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                                        <td>@(evento.HoraEvento?.ToString(@"hh\:mm\:ss") ?? "N/A")</td>
+                                        <td>@evento.TipoEvento</td>
+                                        <td>@evento.SubtipoEvento</td>
+                                        <td>@evento.SeveridadEvento</td>
+                                        <td>@evento.UbicacionEvento</td>
+                                        <td>@(evento.ConfianzaEvento.HasValue ? evento.ConfianzaEvento.Value.ToString("P0") : "N/A")</td>
+                                        <td>@evento.EstadoEvento</td>
+                                        <td>
+                                            @if (evento.IdEvento.HasValue)
+                                            {
+                                                <a href="@Url.Action("ExportarEventoCSV", "Home", new { idEvento = evento.IdEvento.Value })" class="btn btn-sm btn-outline-success me-1" title="Exportar CSV" target="_blank"><i class="fas fa-file-csv"></i></a>
+                                                <a href="@Url.Action("ExportarEventoPDF", "Home", new { idEvento = evento.IdEvento.Value })" class="btn btn-sm btn-outline-danger" title="Exportar PDF" target="_blank"><i class="fas fa-file-pdf"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="9" class="text-center">No hay datos disponibles.</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div><span id="lblPaginacionInfo" class="text-muted">Mostrando @Model.Count() de @totalRegistros registros. Página @paginaActual de @totalPaginas.</span></div>
+                    <div>
+                        @if (paginaActual > 1)
+                        {<a href="@Url.Action("Index", "Home", new { pagina = paginaActual - 1 })" id="btnAnteriorDatos" class="btn btn-outline-secondary">Anterior</a>}
+                        @if (paginaActual < totalPaginas)
+                        {<a href="@Url.Action("Index", "Home", new { pagina = paginaActual + 1 })" id="btnSiguienteDatos" class="btn btn-primary ms-2">Siguiente</a>}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Actualizado FontAwesome -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> <!-- Necesario para Dropdowns de Bootstrap 5 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Variables para almacenar las instancias de los gráficos
+        let lineChartInstance, barChartInstance, pieChartInstance;
+
+        const jsLabelsTendencia = @Html.Raw(Json.Encode(labelsTendencia));
+        const jsDataTendencia = @Html.Raw(Json.Encode(dataTendencia));
+        const jsLabelsTipos = @Html.Raw(Json.Encode(labelsTipos));
+        const jsDataTipos = @Html.Raw(Json.Encode(dataTipos));
+        const jsLabelsSeveridad = @Html.Raw(Json.Encode(labelsSeveridad));
+        const jsDataSeveridad = @Html.Raw(Json.Encode(dataSeveridad));
+        const backgroundColorsTipos = ['#3b82f6', '#ef4444', '#f97316', '#eab308', '#22c55e', '#6b7280'];
+        const backgroundColorsSeveridadMap = { 'baja': '#22c55e', 'media': '#eab308', 'alta': '#f97316', 'crítico': '#ef4444', 'no especificada': '#6c757d', 'n/a': '#6c757d' };
+        const pieChartColors = jsLabelsSeveridad.map(label => backgroundColorsSeveridadMap[(label || "n/a").toLowerCase()] || '#6c757d');
+
+        if (document.getElementById('cnvLineChart') && jsLabelsTendencia.length > 0) {
+            lineChartInstance = new Chart(document.getElementById('cnvLineChart').getContext('2d'), { // Store instance
+                type: 'line',
+                data: {
+                    labels: jsLabelsTendencia,
+                    datasets: [{
+                        label: 'Detecciones',
+                        data: jsDataTendencia,
+                        borderColor: '#8884d8',
+                        backgroundColor: 'rgba(136, 132, 216, 0.1)', // For area under line
+                        borderWidth: 2,
+                        tension: 0.1,
+                        pointRadius: 3,
+                        pointBackgroundColor: '#8884d8',
+                        pointHoverRadius: 8,
+                        fill: true // Make sure area under line is filled
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+        if (document.getElementById('cnvBarChart') && jsLabelsTipos.length > 0) {
+            barChartInstance = new Chart(document.getElementById('cnvBarChart').getContext('2d'), { // Store instance
+                type: 'bar',
+                data: {
+                    labels: jsLabelsTipos,
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: jsDataTipos,
+                        backgroundColor: backgroundColorsTipos.slice(0, jsLabelsTipos.length),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+        if (document.getElementById('cnvPieChart') && jsLabelsSeveridad.length > 0) {
+            pieChartInstance = new Chart(document.getElementById('cnvPieChart').getContext('2d'), { // Store instance
+                type: 'pie',
+                data: {
+                    labels: jsLabelsSeveridad,
+                    datasets: [{
+                        data: jsDataSeveridad,
+                        backgroundColor: pieChartColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (c) {
+                                    let total = c.dataset.data.reduce((a, b) => a + b, 0);
+                                    let percentage = total > 0 ? (c.raw / total * 100).toFixed(0) : 0;
+                                    return `${c.label}: ${c.raw} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Toggle functionality
+        const btnToggleCharts = document.getElementById('btnToggleCharts');
+        const btnToggleData = document.getElementById('btnToggleData');
+        const pnlChartsSection = document.getElementById('pnlChartsSection');
+        const pnlDataSection = document.getElementById('pnlDataSection');
+
+        if (btnToggleCharts && btnToggleData && pnlChartsSection && pnlDataSection) {
+            btnToggleCharts.addEventListener('click', () => {
+                pnlChartsSection.style.display = 'block';
+                pnlDataSection.style.display = 'none';
+                btnToggleCharts.classList.add('active');
+                btnToggleData.classList.remove('active');
+            });
+            btnToggleData.addEventListener('click', () => {
+                pnlChartsSection.style.display = 'none';
+                pnlDataSection.style.display = 'block';
+                btnToggleCharts.classList.remove('active');
+                btnToggleData.classList.add('active');
+            });
+        } else {
+             console.error("Error: One or more elements for chart/data toggling were not found.");
+        }
+
+        // Helper function to export chart as PNG
+        function exportChartToPNG(chartInstance, fileName) {
+            if (chartInstance) {
+                const imageLink = document.createElement('a');
+                // For charts with transparent backgrounds, you might want to draw a white background first
+                // Create an off-screen canvas
+                const offScreenCanvas = document.createElement('canvas');
+                offScreenCanvas.width = chartInstance.canvas.width;
+                offScreenCanvas.height = chartInstance.canvas.height;
+                const offScreenCtx = offScreenCanvas.getContext('2d');
+
+                // Draw a white background
+                offScreenCtx.fillStyle = 'white'; // or any color you prefer
+                offScreenCtx.fillRect(0, 0, offScreenCanvas.width, offScreenCanvas.height);
+
+                // Draw the chart on top of the white background
+                offScreenCtx.drawImage(chartInstance.canvas, 0, 0);
+
+                // Get the image data from the off-screen canvas
+                imageLink.href = offScreenCanvas.toDataURL('image/png', 1.0); // Quality 1.0
+                imageLink.download = fileName;
+                document.body.appendChild(imageLink); // Required for Firefox
+                imageLink.click();
+                document.body.removeChild(imageLink);
+            } else {
+                console.error("Chart instance not found for export:", fileName);
+                alert("No se pudo exportar el gráfico: la instancia del gráfico no está disponible.");
+            }
+        }
+
+        // Event listeners for chart export buttons
+        const btnExportLinea = document.getElementById('btnExportarGraficoLinea');
+        if (btnExportLinea) {
+            btnExportLinea.addEventListener('click', function() {
+                exportChartToPNG(lineChartInstance, 'tendencia_detecciones.png');
+            });
+        }
+
+        const btnExportBarras = document.getElementById('btnExportarGraficoBarras');
+        if (btnExportBarras) {
+            btnExportBarras.addEventListener('click', function() {
+                exportChartToPNG(barChartInstance, 'tipos_detecciones.png');
+            });
+        }
+
+        const btnExportPie = document.getElementById('btnExportarGraficoPie');
+        if (btnExportPie) {
+            btnExportPie.addEventListener('click', function() {
+                exportChartToPNG(pieChartInstance, 'distribucion_severidad.png');
+            });
+        }
+    });
+</script>

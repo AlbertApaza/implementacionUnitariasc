@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Mensaje";
+}
+
+<h2>@ViewBag.Mensaje</h2>
+
+<p>Serás redirigido al inicio de sesión en unos segundos...</p>
+
+<script>
+    setTimeout(function () {
+        window.location.href = '@Url.Action("Login", "Usuario")';
+    }, 5000);
+</script>

@@ -1,0 +1,96 @@
+﻿<div class="d-flex flex-column h-100 bg-white border-end">
+    <div class="p-4 border-bottom">
+        <h1 class="h5 text-primary mb-2">Sistema de Gestión</h1>
+        @if (Session["Usuario"] != null)
+        {
+            var usuario = (ProyectoConstruccion_APAZA_CUTIPA.Models.clsUsuario)Session["Usuario"];
+            <p class="small text-muted mb-0">
+                Bienvenido, @usuario.Nombre
+                <br />
+                <span class="text-secondary">Rol: @usuario.TipoUsuario</span>
+            </p>
+        }
+    </div>
+
+    <div class="flex-grow-1 py-3 overflow-auto">
+        <ul class="nav flex-column px-2">
+            @if (Session["Usuario"] != null)
+            {
+                var usuario = (ProyectoConstruccion_APAZA_CUTIPA.Models.clsUsuario)Session["Usuario"];
+                var rol = usuario.TipoUsuario;
+
+                if (rol == "Administrador")
+                {
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Index", "Home")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-house-door me-3 fs-5"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                }
+
+                if (new[] { "Administrador", "Empleado", "Invitado" }.Contains(rol))
+                {
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Index", "Camara")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Controller"].ToString() == "Camara" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-camera me-3 fs-5"></i>
+                            <span>Cámara</span>
+                        </a>
+                    </li>
+                }
+
+                if (new[] { "Administrador", "Empleado" }.Contains(rol))
+                {
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Index", "Clips")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Controller"].ToString() == "Clips" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-play-circle me-3 fs-5"></i>
+                            <span>Clips</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Index", "Configuracion")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Controller"].ToString() == "Configuracion" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-gear me-3 fs-5"></i>
+                            <span>Configuración</span>
+                        </a>
+                    </li>
+                }
+
+                @* Aquí el nuevo item para Administradores *@
+                if (rol == "Administrador")
+                {
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Solicitudes", "Usuario")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Action"].ToString() == "Solicitudes" && ViewContext.RouteData.Values["Controller"].ToString() == "Usuario" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-person-check me-3 fs-5"></i>
+                            <span>Solicitudes</span>
+                        </a>
+                    </li>
+                }
+
+                if (rol == "Administrador")
+                {
+                    <li class="nav-item mb-1">
+                        <a href="@Url.Action("Index", "Reportes")"
+                           class="nav-link d-flex align-items-center px-3 py-2 rounded @(ViewContext.RouteData.Values["Controller"].ToString() == "Reportes" ? "text-primary bg-light border-start border-4 border-primary" : "text-secondary")">
+                            <i class="bi bi-file-text me-3 fs-5"></i>
+                            <span>Reportes</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div class="p-3 border-top">
+        <a href="@Url.Action("Logout", "Usuario")"
+           class="nav-link d-flex align-items-center px-3 py-2 rounded text-danger">
+            <i class="bi bi-box-arrow-right me-3 fs-5"></i>
+            <span>Cerrar Sesión</span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,355 @@
+﻿@{
+    var cameraStatus = "green"; // Estado inicial: encendido
+}
+<div class="state-bar-horizontal w-100 p-2 d-flex align-items-center justify-content-between border-bottom bg-light">
+    <!-- Estado -->
+    <div class="d-flex align-items-center">
+        <div id="statusIndicator" class="status-indicator me-2 rounded-circle"
+             style="width: 14px; height: 14px; background-color: @(cameraStatus == "green" ? "#28a745" : cameraStatus == "red" ? "#dc3545" : "#6c757d"); cursor: pointer;">
+        </div>
+        <span id="statusText" class="fw-semibold">
+            @(cameraStatus == "green" ? "Encendido" : cameraStatus == "red" ? "Apagado" : "Desconectado")
+        </span>
+    </div>
+
+    <!-- Notificaciones y perfil -->
+    <div class="d-flex align-items-center">
+        <!-- Estado de conexión Firebase ELIMINADO -->
+        <!-- Notificaciones -->
+        <div class="dropdown me-3">
+            <button class="btn btn-link position-relative p-1" type="button" id="notificationDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-bell-fill fs-5 text-secondary"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                      id="notificationCount" style="display: none;">0</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notificationDropdown"
+                style="width: 400px; max-height: 450px; overflow-y: auto;" id="notificationList">
+                <li class="px-3 py-2 border-bottom fw-medium bg-light d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-bell"></i> Notificaciones</span>
+                    <div>
+                        <button class="btn btn-sm btn-outline-success me-1" onclick="enviarNotificacionPrueba()" title="Prueba Local">
+                            <i class="bi bi-send"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="limpiarNotificaciones()" title="Limpiar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </li>
+                <li class="px-3 py-2 text-muted text-center" id="emptyMessage">
+                    <i class="bi bi-bell-slash"></i><br>
+                    No hay notificaciones
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Animaciones */
+    @@keyframes bounceIn {
+        0% {
+            transform: scale(0);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Animación pulse ya no es necesaria si se elimina el indicador de conexión */
+    /*
+    @@keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    */
+
+    /* Estilos de notificaciones */
+    .notification-badge-animate {
+        animation: bounceIn 0.3s ease-out;
+    }
+
+    .notification-item {
+        transition: all 0.3s ease;
+    }
+
+        .notification-item.unread {
+            background-color: #f8f9ff;
+            border-left: 3px solid #0d6efd;
+        }
+
+        .notification-item.alert {
+            background-color: #fff5f5;
+            border-left: 3px solid #dc3545;
+        }
+
+        .notification-item.new {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+
+    /* Estados de conexión ELIMINADOS del CSS ya que el elemento no existe */
+    /*
+    .status-online { color: #28a745 !important; }
+    .status-offline { color: #dc3545 !important; }
+    .status-connecting {
+        color: #ffc107 !important;
+        animation: pulse 2s infinite;
+    }
+    */
+
+    /* Hover effects */
+    #notificationDropdown:hover .bi-bell-fill {
+        color: #0d6efd !important;
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .dropdown-menu {
+            width: 320px !important;
+        }
+        /* #firebaseConnectionStatus ya no existe, por lo que esta regla no es necesaria
+        #firebaseConnectionStatus {
+            display: none;
+        }
+        */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Inicializando sistema de notificaciones...');
+
+        // === VARIABLES GLOBALES ===
+        let notificationCount = 0;
+        // let isFirebaseReady = false; // Eliminada, ya no se usa
+
+        // Elementos DOM
+        const countElement = document.getElementById("notificationCount");
+        const listElement = document.getElementById("notificationList");
+        const emptyMessage = document.getElementById("emptyMessage");
+        // const statusIcon = document.getElementById("firebaseStatusIcon"); // Eliminado
+        // const statusText = document.getElementById("firebaseStatusText"); // Eliminado
+
+        // === FUNCIONALIDAD DEL ESTADO DE LA CÁMARA ===
+        const statusIndicator = document.getElementById('statusIndicator');
+        const cameraStatusText = document.getElementById('statusText');
+
+        if (statusIndicator) {
+            statusIndicator.addEventListener('click', () => {
+                const currentColor = window.getComputedStyle(statusIndicator).backgroundColor;
+                if (currentColor === 'rgb(40, 167, 69)' || currentColor === '#28a745') {
+                    statusIndicator.style.backgroundColor = '#dc3545';
+                    cameraStatusText.textContent = 'Apagado';
+                } else if (currentColor === 'rgb(220, 53, 69)' || currentColor === '#dc3545') {
+                    statusIndicator.style.backgroundColor = '#6c757d';
+                    cameraStatusText.textContent = 'Desconectado';
+                } else {
+                    statusIndicator.style.backgroundColor = '#28a745';
+                    cameraStatusText.textContent = 'Encendido';
+                }
+            });
+        }
+
+        // === INICIALIZACIÓN DE DROPDOWNS ===
+        const dropdownElements = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+        dropdownElements.forEach(el => new bootstrap.Dropdown(el));
+
+        // === FUNCIONES DE NOTIFICACIONES ===
+
+        // Función para actualizar estado de Firebase ELIMINADA
+        // function updateFirebaseStatus(status, message) { ... }
+
+        // Función para agregar notificación al dropdown
+        window.agregarNotificacion = function (title, body, isAlert = false) {
+            console.log('📥 Agregando notificación al dropdown:', { title, body, isAlert });
+
+            if (emptyMessage && emptyMessage.style.display !== 'none') {
+                emptyMessage.style.display = 'none';
+            }
+
+            const nuevaNotificacion = document.createElement("li");
+            nuevaNotificacion.className = `notification-item unread new ${isAlert ? 'alert' : ''}`;
+
+            const timeString = new Date().toLocaleTimeString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const iconClass = isAlert ?
+                'bi-exclamation-triangle-fill text-warning' :
+                'bi-info-circle-fill text-primary';
+
+            nuevaNotificacion.innerHTML = `
+                <a class="dropdown-item py-2" href="#" onclick="marcarComoLeida(this, event)">
+                    <div class="d-flex align-items-start">
+                        <i class="bi ${iconClass} me-2 mt-1 flex-shrink-0"></i>
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold">${title}</div>
+                            <small class="text-muted">${body}</small>
+                            <div class="text-end mt-1">
+                                <small class="text-muted">${timeString}</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>`;
+
+            const headerItem = listElement.querySelector('.bg-light');
+            headerItem.insertAdjacentElement('afterend', nuevaNotificacion);
+
+            notificationCount++;
+            actualizarContador();
+
+            setTimeout(() => {
+                nuevaNotificacion.classList.remove('new');
+            }, 500);
+
+            mostrarToast(title, body, isAlert);
+        };
+
+        window.actualizarContador = function () {
+            if (notificationCount > 0) {
+                countElement.textContent = notificationCount > 99 ? '99+' : notificationCount;
+                countElement.style.display = 'inline';
+                countElement.classList.add('notification-badge-animate');
+
+                setTimeout(() => {
+                    countElement.classList.remove('notification-badge-animate');
+                }, 300);
+            } else {
+                countElement.style.display = 'none';
+                if (listElement.querySelectorAll('.notification-item').length === 0) {
+                    emptyMessage.style.display = 'block';
+                }
+            }
+        };
+
+        window.marcarComoLeida = function (element, event) {
+            if (event) event.preventDefault();
+
+            const notificationItem = element.closest('.notification-item');
+            if (notificationItem && notificationItem.classList.contains('unread')) {
+                notificationItem.classList.remove('unread');
+                notificationCount = Math.max(0, notificationCount - 1);
+                actualizarContador();
+            }
+        };
+
+        window.limpiarNotificaciones = function () {
+            const notifications = listElement.querySelectorAll('.notification-item');
+            notifications.forEach(item => item.remove());
+            notificationCount = 0;
+            actualizarContador();
+            console.log('🧹 Notificaciones limpiadas');
+        };
+
+        // === MANEJO DE NOTIFICACIONES FIREBASE ===
+        window.procesarNotificacionFirebase = function (payload) {
+            console.log("📩 Procesando notificación Firebase:", payload);
+
+            const { title, body } = payload.notification;
+
+            if (!title || !body) {
+                console.warn('⚠️ Notificación sin título o cuerpo:', payload);
+                return;
+            }
+
+            const isAlert = title.toLowerCase().includes('alerta') ||
+                title.toLowerCase().includes('detectado') ||
+                title.toLowerCase().includes('error') ||
+                title.toLowerCase().includes('warning');
+
+            agregarNotificacion(title, body, isAlert);
+        };
+
+        function mostrarToast(title, body, isAlert = false) {
+            const existingToasts = document.querySelectorAll('.toast');
+            const recentToast = Array.from(existingToasts).find(toast => {
+                const toastTitle = toast.querySelector('strong');
+                return toastTitle && toastTitle.textContent === title;
+            });
+
+            if (recentToast) {
+                console.log('Toast similar reciente detectado, omitiendo...');
+                return;
+            }
+
+            const toastColor = isAlert ? 'bg-warning text-dark' : 'bg-primary text-white';
+            const toastIcon = isAlert ? 'bi-exclamation-triangle-fill' : 'bi-bell-fill';
+
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center ${toastColor} border-0 show position-fixed`;
+            toast.setAttribute("role", "alert");
+            toast.style.cssText = "top: 70px; right: 20px; z-index: 1055; min-width: 320px; max-width: 400px;";
+
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi ${toastIcon} me-2"></i>
+                        <strong>${title}</strong><br/>
+                        <small>${body}</small>
+                    </div>
+                    <button type="button" class="btn-close ${isAlert ? 'btn-close-dark' : 'btn-close-white'} me-2 m-auto"
+                            onclick="this.parentElement.parentElement.remove()" aria-label="Close"></button>
+                </div>`;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 6000);
+        }
+
+        // === FUNCIONES DE PRUEBA ===
+        window.enviarNotificacionPrueba = function () {
+            console.log('🧪 Enviando notificación de prueba local...');
+            const payload = {
+                notification: {
+                    title: "Prueba Local",
+                    body: "Esta es una notificación de prueba generada localmente"
+                }
+            };
+            procesarNotificacionFirebase(payload);
+        };
+
+        // === ESCUCHAR MENSAJES DEL SERVICE WORKER ===
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                console.log('Mensaje del Service Worker:', event.data);
+
+                if (event.data.type === 'FIREBASE_NOTIFICATION') {
+                    procesarNotificacionFirebase(event.data.payload);
+                }
+            });
+        }
+
+        console.log('✅ Sistema de notificaciones inicializado correctamente');
+    });
+</script>

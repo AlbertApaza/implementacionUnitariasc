@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Registro";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/source/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row min-vh-100 align-items-center justify-content-center">
+            <div class="col-md-9 col-lg-7">
+                <div class="card border-0 shadow-lg">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body p-4 p-md-5">
+                                <h2 class="fw-bold mb-2">Registro</h2>
+                                <p class="text-muted mb-4">Crea tu cuenta para acceder al sistema.</p>
+
+                                @if (ViewBag.Mensaje != null)
+                                {
+                                    <div class="alert alert-info">@ViewBag.Mensaje</div>
+                                }
+
+                                @using (Html.BeginForm("Registro", "Usuario", FormMethod.Post, new { @class = "needs-validation" }))
+                                {
+                                    <div class="mb-3">
+                                        <label for="Nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control shadow-sm" id="Nombre" name="Nombre" placeholder="Tu nombre completo" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="Correo" class="form-label">Correo</label>
+                                        <input type="email" class="form-control shadow-sm" id="Correo" name="Correo" placeholder="tu@ejemplo.com" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="Contrasena" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control shadow-sm" id="Contrasena" name="Contrasena" placeholder="••••••••" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmarContrasena" class="form-label">Confirmar Contraseña</label>
+                                        <input type="password" class="form-control shadow-sm" id="confirmarContrasena" name="confirmarContrasena" placeholder="••••••••" required />
+                                    </div>
+
+                                    <div class="d-grid gap-2 mb-4">
+                                        <button type="submit" class="btn btn-primary py-2 shadow-sm">Registrarse</button>
+                                    </div>
+                                }
+
+                                <div class="text-center mt-4">
+                                    <p class="text-muted mb-0">¿Ya tienes cuenta? <a href="@Url.Action("Login", "Usuario")" class="text-primary fw-medium">Inicia sesión aquí</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-none d-md-block bg-light overflow-hidden">
+                            <img src="https://plus.unsplash.com/premium_photo-1663962975773-44cfbefe880b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGVhdmVzJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D" alt="Imagen de registro" class="w-100 h-100 object-fit-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/source/js/jquery-3.7.1.min.js"></script>
+    <script src="~/source/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

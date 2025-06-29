@@ -1,0 +1,374 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|c:\\users\\kenyi\\desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\autenticarusuariotests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\autenticarusuariotests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\models\\clsreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\models\\clsreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\reportetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\reportetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\iusuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\iusuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\aprobacionusuariotests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\aprobacionusuariotests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\models\\clsusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\models\\clsusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\contactorepositorymysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\contactorepositorymysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\googleauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\googleauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\icontactorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\icontactorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\igoogleauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\igoogleauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\repositories\\usuariorepositorymysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\repositories\\usuariorepositorymysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\contactoconfiguraciontests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\contactoconfiguraciontests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\recuperarcontrasena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\recuperarcontrasena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\test_apaza_cutipa\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{5DDF8D31-816D-425E-916A-40589C5F101C}|TEST_APAZA_CUTIPA\\TEST_APAZA_CUTIPA.csproj|solutionrelative:test_apaza_cutipa\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\models\\clscontactoemergencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\models\\clscontactoemergencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\models\\clscontadorpersona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\models\\clscontadorpersona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\controllers\\configuracioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\controllers\\configuracioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\proyectoconstruccion_apaza_cutipa\\controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11998DF9-A928-4C4B-9540-89EF746FC613}|ProyectoConstruccion_APAZA_CUTIPA\\ProyectoConstruccion_APAZA_CUTIPA.csproj|solutionrelative:proyectoconstruccion_apaza_cutipa\\controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IUsuarioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IUsuarioRepository.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IUsuarioRepository.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IUsuarioRepository.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IUsuarioRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:17:48.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReporteTests.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\ReporteTests.cs",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\ReporteTests.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\ReporteTests.cs",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\ReporteTests.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAswPsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:07:10.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "clsReporte.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsReporte.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsReporte.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsReporte.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsReporte.cs",
+              "ViewState": "AgIAAF4AAABAAAAAAMAwwB0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T04:29:33.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AutenticarUsuarioTests.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\AutenticarUsuarioTests.cs",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\AutenticarUsuarioTests.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\AutenticarUsuarioTests.cs",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\AutenticarUsuarioTests.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAcwIkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T18:11:56.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AprobacionUsuarioTests.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\AprobacionUsuarioTests.cs",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\AprobacionUsuarioTests.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\AprobacionUsuarioTests.cs",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\AprobacionUsuarioTests.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAswGcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T21:09:07.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "clsUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsUsuario.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsUsuario.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsUsuario.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsUsuario.cs",
+              "ViewState": "AgIAABEBAAAAAAAAAAAUwCEBAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T18:08:56.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Web.config",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Web.config",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Web.config",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-07T22:34:59.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IGoogleAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IGoogleAuthService.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IGoogleAuthService.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IGoogleAuthService.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IGoogleAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T23:25:58.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ContactoRepositoryMySQL.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\ContactoRepositoryMySQL.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\ContactoRepositoryMySQL.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\ContactoRepositoryMySQL.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\ContactoRepositoryMySQL.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAuwAcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:38:32.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GoogleAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\GoogleAuthService.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\GoogleAuthService.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\GoogleAuthService.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\GoogleAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T23:27:42.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UsuarioRepositoryMySQL.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\UsuarioRepositoryMySQL.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\UsuarioRepositoryMySQL.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\UsuarioRepositoryMySQL.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\UsuarioRepositoryMySQL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T18:08:57.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IContactoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IContactoRepository.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IContactoRepository.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IContactoRepository.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Repositories\\IContactoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:41:30.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ContactoConfiguracionTests.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\ContactoConfiguracionTests.cs",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\ContactoConfiguracionTests.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\ContactoConfiguracionTests.cs",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\ContactoConfiguracionTests.cs",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAuwEwBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:58:34.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "RecuperarContrasena.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\RecuperarContrasena.cs",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\RecuperarContrasena.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\RecuperarContrasena.cs",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\RecuperarContrasena.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAmwBkAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T20:46:04.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_Viewstart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Views\\_Viewstart.cshtml",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Views\\_Viewstart.cshtml",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Views\\_Viewstart.cshtml",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Views\\_Viewstart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-07T21:12:03.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAiwLkBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T18:24:22.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "packages.config",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\packages.config",
+              "RelativeDocumentMoniker": "TEST_APAZA_CUTIPA\\packages.config",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\TEST_APAZA_CUTIPA\\packages.config",
+              "RelativeToolTip": "TEST_APAZA_CUTIPA\\packages.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-07T19:51:03.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAuwIcAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:01:53.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "clsContadorPersona.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContadorPersona.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContadorPersona.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContadorPersona.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContadorPersona.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T03:44:20.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "clsContactoEmergencia.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContactoEmergencia.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContactoEmergencia.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContactoEmergencia.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Models\\clsContactoEmergencia.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAIwAABAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T19:22:35.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ConfiguracionController.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ConfiguracionController.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ConfiguracionController.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ConfiguracionController.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ConfiguracionController.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAqwPsAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T04:19:19.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ReportesController.cs",
+              "DocumentMoniker": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ReportesController.cs",
+              "RelativeDocumentMoniker": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ReportesController.cs",
+              "ToolTip": "C:\\Users\\Kenyi\\Desktop\\07-implementacion-de-codigo-g05_apaza_cutipa\\07-implementacion-de-codigo-g05_apaza_cutipa\\ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ReportesController.cs",
+              "RelativeToolTip": "ProyectoConstruccion_APAZA_CUTIPA\\Controllers\\ReportesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T06:38:07.323Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

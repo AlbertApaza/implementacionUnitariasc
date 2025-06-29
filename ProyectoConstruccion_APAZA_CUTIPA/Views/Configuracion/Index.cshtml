@@ -1,0 +1,406 @@
+﻿@model List<ProyectoConstruccion_APAZA_CUTIPA.Models.clsContactoEmergencia>
+@{
+    ViewBag.Title = "Contactos de Emergencia";
+    var listaParentescos = new List<SelectListItem>
+{
+        new SelectListItem { Text = "Padre", Value = "Padre" },
+        new SelectListItem { Text = "Madre", Value = "Madre" },
+        new SelectListItem { Text = "Hermano/a", Value = "Hermano/a" },
+        new SelectListItem { Text = "Cónyuge", Value = "Cónyuge" },
+        new SelectListItem { Text = "Hijo/a", Value = "Hijo/a" },
+        new SelectListItem { Text = "Amigo/a", Value = "Amigo/a" },
+        new SelectListItem { Text = "Otro (especificar)", Value = "Otro" }
+    };
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<style>
+    .contactos-emergencia-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .contactos-emergencia-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .contactos-emergencia-container h2 {
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .contactos-emergencia-container h3 {
+        margin-top: 0;
+        color: #337ab7;
+    }
+
+    .form-group-ce {
+        margin-bottom: 15px;
+    }
+
+        .form-group-ce label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+    .form-control-ce, select.form-control-ce {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn-ce {
+        padding: 10px 15px;
+        color: white;
+        background-color: #337ab7;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+        .btn-ce:hover {
+            background-color: #286090;
+        }
+
+    .btn-ce-danger {
+        background-color: #d9534f;
+    }
+
+        .btn-ce-danger:hover {
+            background-color: #c9302c;
+        }
+
+    .btn-ce-success {
+        background-color: #5cb85c;
+    }
+
+        .btn-ce-success:hover {
+            background-color: #4cae4c;
+        }
+
+    .btn-ce-warning {
+        background-color: #f0ad4e;
+    }
+
+        .btn-ce-warning:hover {
+            background-color: #ec971f;
+        }
+
+    .btn-ce-secondary {
+        background-color: #6c757d;
+    }
+
+        .btn-ce-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .btn-ce-sm {
+        padding: 5px 10px;
+        font-size: 0.9em;
+    }
+
+    .contact-list-ce ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .contact-list-ce li {
+        background-color: #fff;
+        border: 1px solid #eee;
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .contact-list-ce li.principal-contact-item-ce {
+            background-color: #dff0d8;
+            border-left: 5px solid #5cb85c;
+        }
+
+    .contact-info-ce {
+        flex-grow: 1;
+    }
+
+    .contact-actions-ce button, .contact-actions-ce form button {
+        margin-left: 8px;
+    }
+
+    .alert-ce {
+        padding: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .alert-ce-success {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+
+    .alert-ce-danger {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .error-message-js-ce {
+        color: #d9534f;
+        font-size: 0.875rem;
+        margin-top: 4px;
+        display: none;
+    }
+
+    input.error-field-ce, select.error-field-ce {
+        border-color: #d9534f !important;
+    }
+
+    .fa-fw {
+        margin-right: 5px;
+    }
+
+    #cancelEditBtnCe {
+        display: none;
+    }
+</style>
+
+<div class="contactos-emergencia-container">
+    <h2><i class="fas fa-address-card fa-fw"></i>Administrar Contactos de Emergencia</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert-ce alert-ce-success" id="tempDataSuccessMsgCe">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert-ce alert-ce-danger" id="tempDataErrorMsgCe">@TempData["ErrorMessage"]</div>
+    }
+    <div id="ajaxMessageAreaCe" class="alert-ce" style="display:none;"></div>
+
+    <div class="form-section contactos-emergencia-section">
+        <h3 id="formTitleCe"><i class="fas fa-user-plus fa-fw"></i>Agregar Nuevo Contacto</h3>
+        <form id="contactFormCe" method="post" action="@Url.Action("AgregarContactoWeb", "Configuracion")">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="IdContactoEmergenciaCe" name="IdContactoEmergencia" value="0" />
+            <div class="form-group-ce">
+                <label for="NombreCe">Nombre</label>
+                <input type="text" id="NombreCe" name="Nombre" class="form-control-ce" />
+                <div class="error-message-js-ce" id="NombreErrorCe"></div>
+            </div>
+            <div class="form-group-ce">
+                <label for="ApellidoCe">Apellido</label>
+                <input type="text" id="ApellidoCe" name="Apellido" class="form-control-ce" />
+                <div class="error-message-js-ce" id="ApellidoErrorCe"></div>
+            </div>
+            <div class="form-group-ce">
+                <label for="NumeroTelefonoCe">Número de Teléfono</label>
+                <input type="tel" id="NumeroTelefonoCe" name="NumeroTelefono" class="form-control-ce" />
+                <div class="error-message-js-ce" id="NumeroTelefonoErrorCe"></div>
+            </div>
+            <div class="form-group-ce">
+                <label for="ParentescoSelectCe">Parentesco/Relación</label>
+                @Html.DropDownList("Parentesco", listaParentescos, "Seleccione una relación", new { @class = "form-control-ce", id = "ParentescoSelectCe" })
+                <div class="error-message-js-ce" id="ParentescoSelectErrorCe"></div>
+            </div>
+            <div class="form-group-ce" id="parentescoOtroDivCe" style="display:none;">
+                <label for="ParentescoOtroCe">Especificar Parentesco</label>
+                <input type="text" id="ParentescoOtroCe" name="ParentescoOtro" class="form-control-ce" />
+                <div class="error-message-js-ce" id="ParentescoOtroErrorCe"></div>
+            </div>
+            <div class="form-group-ce">
+                <input type="checkbox" id="EsPrincipalCe" name="EsPrincipal" value="true" />
+                <label for="EsPrincipalCe" style="font-weight:normal; margin-left:5px;">Marcar como contacto principal</label>
+            </div>
+            <button type="submit" id="saveBtnCe" class="btn-ce"><i class="fas fa-save fa-fw"></i>Guardar Contacto</button>
+            <button type="button" id="cancelEditBtnCe" class="btn-ce btn-ce-secondary"><i class="fas fa-times fa-fw"></i>Cancelar Edición</button>
+        </form>
+    </div>
+
+    <div class="list-section contactos-emergencia-section">
+        <h3><i class="fas fa-address-book fa-fw"></i>Mis Contactos</h3>
+        <div class="contact-list-ce">
+            <ul id="contactListUlCe">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var contacto in Model.OrderByDescending(c => c.EsPrincipal).ThenBy(c => c.Nombre))
+                    {
+                        <li class="@(contacto.EsPrincipal ? "principal-contact-item-ce" : "")" data-id="@contacto.IdContactoEmergencia">
+                            <div class="contact-info-ce">
+                                <strong>@contacto.Nombre @contacto.Apellido</strong>
+                                @if (contacto.EsPrincipal)
+                                {
+                                    <span style="color: #5cb85c; font-weight:bold; margin-left: 5px;">(Principal <i class="fas fa-star"></i>)</span>
+                                }
+                                <br />
+                                Tel: @contacto.NumeroTelefono <br />
+                                Relación: @contacto.Parentesco
+                            </div>
+                            <div class="contact-actions-ce">
+                                <button type="button" class="btn-ce btn-ce-warning btn-ce-sm btn-edit-contact-ce" data-id="@contacto.IdContactoEmergencia" title="Editar Contacto"><i class="fas fa-edit"></i></button>
+                                @if (!contacto.EsPrincipal)
+                                {
+                                    <form action="@Url.Action("MarcarComoPrincipalWeb", "Configuracion")" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="idContactoEmergencia" value="@contacto.IdContactoEmergencia" />
+                                        <button type="submit" class="btn-ce btn-ce-set-principal btn-ce-sm" title="Marcar como Principal">Hacer Principal</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn-ce btn-ce-success btn-ce-sm" disabled title="Ya es Principal"><i class="fas fa-check-circle"></i> Principal</button>
+                                }
+                                <form action="@Url.Action("EliminarContactoWeb", "Configuracion")" method="post" style="display:inline;" onsubmit="return confirm('¿Está seguro de que desea eliminar este contacto?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="idContactoEmergencia" value="@contacto.IdContactoEmergencia" />
+                                    <button type="submit" class="btn-ce btn-ce-danger btn-ce-sm" title="Eliminar Contacto"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>No hay contactos de emergencia registrados.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        var isEditingCe = false;
+        function validateFieldCe(fieldId, errorId, validationFn, customErrorMessage) {
+            const value = $('#' + fieldId).val();
+            const isValid = validationFn(value);
+            const $field = $('#' + fieldId);
+            const $error = $('#' + errorId);
+            if (!isValid) { $field.addClass('error-field-ce'); $error.text(customErrorMessage || 'Este campo es inválido.').show(); }
+            else { $field.removeClass('error-field-ce'); $error.hide(); }
+            return isValid;
+        }
+        function validateFormCe() {
+            let isValid = true;
+            isValid = validateFieldCe('NombreCe', 'NombreErrorCe', val => val && val.trim().length >= 2 && val.trim().length <= 100 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(val.trim()), 'El nombre debe tener entre 2 y 100 letras/espacios.') && isValid;
+            isValid = validateFieldCe('ApellidoCe', 'ApellidoErrorCe', val => val && val.trim().length >= 2 && val.trim().length <= 100 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(val.trim()), 'El apellido debe tener entre 2 y 100 letras/espacios.') && isValid;
+            isValid = validateFieldCe('NumeroTelefonoCe', 'NumeroTelefonoErrorCe', val => val && /^[0-9+-]{7,20}$/.test(val), 'El teléfono debe tener entre 7 y 20 dígitos.') && isValid;
+            const parentescoSelectVal = $('#ParentescoSelectCe').val();
+            if (!parentescoSelectVal) { $('#ParentescoSelectCe').addClass('error-field-ce'); $('#ParentescoSelectErrorCe').text('Seleccione parentesco.').show(); isValid = false; }
+            else { $('#ParentescoSelectCe').removeClass('error-field-ce'); $('#ParentescoSelectErrorCe').hide(); }
+            if (parentescoSelectVal === 'Otro') { isValid = validateFieldCe('ParentescoOtroCe', 'ParentescoOtroErrorCe', val => val && val.trim().length > 0 && val.trim().length <= 50, 'Especifique (máx 50 char).') && isValid; }
+            return isValid;
+        }
+        $('#NombreCe').on('input', () => validateFieldCe('NombreCe', 'NombreErrorCe', val => val && val.trim().length >= 2 && val.trim().length <= 100 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(val.trim()), 'El nombre debe tener entre 2 y 100 letras/espacios.'));
+        $('#ApellidoCe').on('input', () => validateFieldCe('ApellidoCe', 'ApellidoErrorCe', val => val && val.trim().length >= 2 && val.trim().length <= 100 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(val.trim()), 'El apellido debe tener entre 2 y 100 letras/espacios.'));
+        $('#NumeroTelefonoCe').on('input', () => validateFieldCe('NumeroTelefonoCe', 'NumeroTelefonoErrorCe', val => val && /^[0-9+-]{7,20}$/.test(val), 'El teléfono debe tener entre 7 y 20 dígitos.'));
+        $('#ParentescoSelectCe').on('change', function() {
+            const $parentescoOtroDiv = $('#parentescoOtroDivCe'); const $parentescoOtroInput = $('#ParentescoOtroCe');
+            if ($(this).val() === 'Otro') { $parentescoOtroDiv.show(); }
+            else { $parentescoOtroDiv.hide(); $parentescoOtroInput.val('').removeClass('error-field-ce'); $('#ParentescoOtroErrorCe').hide(); }
+            if(!$(this).val()){ $(this).addClass('error-field-ce'); $('#ParentescoSelectErrorCe').text('Seleccione parentesco.').show(); }
+            else { $(this).removeClass('error-field-ce'); $('#ParentescoSelectErrorCe').hide(); }
+        });
+        $('#ParentescoOtroCe').on('input', () => validateFieldCe('ParentescoOtroCe', 'ParentescoOtroErrorCe', val => val && val.trim().length > 0 && val.trim().length <= 50, 'Especifique (máx 50 char).'));
+
+        $('#contactFormCe').submit(function (e) {
+            if (!validateFormCe()) {
+                e.preventDefault();
+                showMessageCe('Por favor, corrija los errores en el formulario.', false, true);
+                return;
+            }
+            var form = $(this);
+            if (isEditingCe) {
+                form.attr('action', '@Url.Action("EditarContactoWeb", "Configuracion")');
+            } else {
+                form.attr('action', '@Url.Action("AgregarContactoWeb", "Configuracion")');
+            }
+            if ($('#ParentescoSelectCe').val() === 'Otro') {
+                var parentescoOtroValor = $('#ParentescoOtroCe').val().trim();
+                var hiddenParentesco = form.find('input[name="Parentesco"]');
+                if (hiddenParentesco.length === 0) {
+                    $('<input>').attr({ type: 'hidden', name: 'Parentesco', value: parentescoOtroValor }).appendTo(form);
+                } else {
+                    hiddenParentesco.val(parentescoOtroValor);
+                }
+                $('#ParentescoSelectCe').attr('name', '_ParentescoSelect_Ignorado');
+            } else {
+                 $('#ParentescoSelectCe').attr('name', 'Parentesco');
+            }
+        });
+
+        function resetFormCe(){
+            var form = $('#contactFormCe');
+            form[0].reset();
+            form.attr('action', '@Url.Action("AgregarContactoWeb", "Configuracion")');
+            $('#IdContactoEmergenciaCe').val('0');
+            $('#parentescoOtroDivCe').hide();
+            $('#ParentescoSelectCe').attr('name', 'Parentesco');
+            $('#EsPrincipalCe').prop('checked', false);
+            $('.error-message-js-ce').hide();
+            $('.form-control-ce').removeClass('error-field-ce');
+            $('#formTitleCe').html('<i class="fas fa-user-plus fa-fw"></i>Agregar Nuevo Contacto');
+            $('#saveBtnCe').html('<i class="fas fa-save fa-fw"></i>Guardar Contacto');
+            $('#cancelEditBtnCe').hide();
+            isEditingCe = false;
+        }
+        $('#cancelEditBtnCe').click(function(){ resetFormCe(); });
+
+        $(document).on('click', '.btn-edit-contact-ce', function () {
+            var contactId = $(this).data('id');
+            $.ajax({
+                url: '@Url.Action("ObtenerContactoParaEditarWeb", "Configuracion")', type: 'GET', data: { idContactoEmergencia: contactId },
+                success: function (response) {
+                    if (response.success && response.data) {
+                        var contacto = response.data;
+                        $('#IdContactoEmergenciaCe').val(contacto.IdContactoEmergencia);
+                        $('#NombreCe').val(contacto.Nombre); $('#ApellidoCe').val(contacto.Apellido);
+                        $('#NumeroTelefonoCe').val(contacto.NumeroTelefono); $('#EsPrincipalCe').prop('checked', contacto.EsPrincipal);
+                        var esParentescoPredefinido = $('#ParentescoSelectCe option[value="' + contacto.Parentesco + '"]').length > 0;
+                        if (esParentescoPredefinido) { $('#ParentescoSelectCe').val(contacto.Parentesco); $('#parentescoOtroDivCe').hide(); $('#ParentescoOtroCe').val(''); }
+                        else { $('#ParentescoSelectCe').val('Otro'); $('#parentescoOtroDivCe').show(); $('#ParentescoOtroCe').val(contacto.Parentesco); }
+                        $('#formTitleCe').html('<i class="fas fa-edit fa-fw"></i>Editar Contacto');
+                        $('#saveBtnCe').html('<i class="fas fa-sync-alt fa-fw"></i>Actualizar Contacto');
+                        $('#contactFormCe').attr('action', '@Url.Action("EditarContactoWeb", "Configuracion")');
+                        $('#cancelEditBtnCe').show(); isEditingCe = true;
+                        $('html, body').animate({ scrollTop: $("#contactFormCe").offset().top - 20 }, 500);
+                    } else { showMessageCe(response.message || 'Error al cargar datos para editar.', false, false); }
+                },
+                error: function () { showMessageCe('Error al obtener datos del contacto.', false, false); }
+            });
+        });
+
+        function showMessageCe(message, isSuccess, persist) {
+            var $messageArea = $('#ajaxMessageAreaCe');
+            $messageArea.html(message);
+            $messageArea.removeClass('alert-ce-success alert-ce-danger').addClass(isSuccess ? 'alert-ce-success' : 'alert-ce-danger');
+            $messageArea.show();
+            if (!persist) {
+                $messageArea.delay(5000).fadeOut();
+            }
+        }
+        if ($('#tempDataSuccessMsgCe').length && $('#tempDataSuccessMsgCe').text().trim()) {
+             $('#tempDataSuccessMsgCe').show().delay(5000).fadeOut();
+        }
+        if ($('#tempDataErrorMsgCe').length && $('#tempDataErrorMsgCe').text().trim()) {
+            $('#tempDataErrorMsgCe').show().delay(5000).fadeOut();
+        }
+    });
+    </script>
+}
